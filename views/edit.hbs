@@ -1,0 +1,12 @@
+<form action="/edit/{{ result.id }}" method="POST">
+    <div class="form-group">
+        <label for="title">제목</label>
+        <input type="text" class="form-control" name="title" value={{ result.title }}>
+    </div>
+    <div>
+        <label for="content">본문</label>
+        <textarea name="content" class="form-control">{{ result.content }}</textarea>
+    </div><br>
+    <button type="submit" class="btn btn-primary">완료</button>
+    <a class="btn btn-outline-primary" href="/journals/{{ result.id }}" role="button">취소</a>
+</form>

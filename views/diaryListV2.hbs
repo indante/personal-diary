@@ -1,0 +1,23 @@
+<h2>일기장</h2>
+
+<ul id="items">
+
+</ul>
+<a class="btn btn-primary" href="/write" role="button">일기 쓰기</a>
+
+<script>
+    $(document).ready(() => {
+        $.get('/diaryListJson', (result) => {
+            console.log(result)
+            const html = result.items.map(item => {
+                return `
+                <li>
+                    <a href="/journals/${item.id}">${item.title}</a>
+                </li>
+                `
+            }).join('')
+            console.log(html)
+            $('#items').html(html)
+        })
+    })
+</script>

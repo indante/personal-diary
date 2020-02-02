@@ -1,0 +1,21 @@
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" class="text-center">번호</th>
+            <th scope="col" class="text-center">제목</th>
+            <th scope="col" class="text-center">날짜</th>
+            <th scope="col" class="text-center">눌러야함</th>
+        </tr>
+    </thead>
+    <tobdy>
+        {{#each items}}
+        <tr>
+            <th scope="row" class="text-center">{{ this.id }}</th>
+            <th scope="row" class="text-center">{{ this.title }}</th>
+            <th scope="row" class="text-center">{{ this.created_at }}</th><br>
+            <th scope="row" onclick="location.href='/journals/{{ this.id }}'" class="text-center">보러가기</th>
+        </tr>
+        {{/each}}
+    </tobdy>
+</table>
+<a class="btn btn-outline-dark" href="/write" role="button" style="width:100%;">일기 쓰기</a>
