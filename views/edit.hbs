@@ -1,12 +1,46 @@
+<style>
+    body {
+        background: url(/diary2.jpg) no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .form-group {
+        position: relative;
+        left: 500px;
+        top: 90px;
+    }
+
+    .editbox {
+        width: 500px;
+    }
+
+    label {
+        color: black;
+        font-weight: bold;
+        font-size: 30px;
+        border-bottom: 6px solid rgb(110, 58, 58);
+        margin-bottom: 15px;
+    }
+
+    input {
+        height: 40px;
+    }
+
+    textarea {
+        height: 350px;
+    }
+</style>
+<div class="editbox">
 <form action="/edit/{{ result.id }}" method="POST">
     <div class="form-group">
-        <label for="title">제목</label>
+        <label for="title">Title</label>
         <input type="text" class="form-control" name="title" value={{ result.title }}>
     </div>
-    <div>
-        <label for="content">본문</label>
-        <textarea name="content" class="form-control">{{ result.content }}</textarea>
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea name="content" class="form-control">{{ result.content }}</textarea><br>
+        <button type="submit" class="btn btn-dark">Submit</button>
+        <a class="btn btn-outline-dark" href="/journals/{{ result.id }}" role="button">Cancel</a>
     </div><br>
-    <button type="submit" class="btn btn-primary">완료</button>
-    <a class="btn btn-outline-primary" href="/journals/{{ result.id }}" role="button">취소</a>
 </form>
+</div>

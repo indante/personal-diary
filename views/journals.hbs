@@ -1,9 +1,45 @@
-<h2>{{ result.title }}</h2>
-<p>{{ result.content }}</p>
-<time datetime="{{ result.created_at }}">Create Time: {{ result.created_at }}</time><br><br>
+<style>
+    body {
+        background: url(/diary2.jpg) no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .journalsBox {
+        position: absolute;
+        top: 90px;
+        left: 500px;
+    }
+
+    label {
+        color: black;
+        font-weight: bold;
+        font-size: 30px;
+        border-bottom: 6px solid rgb(110, 58, 58);
+        margin-bottom: 15px;
+    }
+
+    .title {
+        color: black;
+    }
+
+    .content {
+        color: black;
+    }
+    time {
+        color: black;
+    }
+</style>
+<div class="journalsBox">
+<label for="title">Title</label>
+<p class="title">{{ result.title }}</p>
+<label for="content">Content</label>
+<p class="content">{{ result.content }}</p>
+<label for="createdTime">createdAt</label><br>
+<time datetime="{{ result.created_at }}">{{ result.created_at }}</time><br><br>
 
 <form action="/delete/{{ result.id }}" method="POST">
-    <a class="btn btn-outline-primary" href="/edit/{{ result.id }}" role="button">수정</a>
-    <button class="btn btn-outline-danger" type="submit">삭제</button>
-    <a class="btn btn-primary" href="/diaryList" role="button">홈으로</a>
+    <a class="btn btn-dark" href="/edit/{{ result.id }}" role="button">Edit</a>
+    <a class="btn btn-outline-dark" href="/diaryList" role="button">Home</a>
+    <button class="btn btn-outline-danger" type="submit">Delete</button>
 </form>
+</div>

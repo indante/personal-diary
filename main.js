@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(express.static(__dirname + '/public'));
 
 // hbs 선언 및 설정
 app.engine('hbs', hbs({
@@ -33,43 +34,19 @@ app.get('/', (req, res) => {
     })
 });
 
-app.get('/diaryList', (req, res) => {
-    if (req.cookies.session === undefined) {
-        res.redirect(`/?message=${encodeURIComponent('다시 로그인 해주세요')}`)
-    } else {
-        db.query(`SELECT * FROM journals where user_id='${req.cookies.session}'`, (err, items) => {
-            res.render('diaryList', {
-                items: items
-            })
-        })
-    }
-})
-
-// CSR 방식
-// app.get('/diaryListJson', (req, res) => {
-//     if (req.cookies.session === undefined) {
-//         res.redirect(`/?message=${encodeURIComponent('다시 로그인 해주세요')}`)
-//     } else {
-//         db.query(`SELECT * FROM journals where user_id='${req.cookies.session}'`, (err, items) => {
-//             res.json({ items })
-//             // res.render('diaryList', {
-//             //     items: items
-//             // })
-//         })
-//     }
-// })
-
 app.get('/signUp', (req, res) => {
-    res.render('signUp')
+    res.render('signUp', {
+        message: req.query.message
+    })
 });
 
 app.post('/signUp', (req, res) => {
     const { username, password } = req.body;
     db.query(`INSERT INTO users (username, password) VALUE('${username}', '${password}') `, (err, result) => {
         if (err) {
-            res.send('아이디가 중복임')
+            res.redirect(`/signUp?message=${encodeURIComponent('아이디가 중복입니다.')}`)
         } else {
-            res.redirect(`/?message=${encodeURIComponent('회원가입이 완료되었습니다. 로그인 해주세요.')}`)
+            res.redirect(`/?message=${encodeURIComponent('회원가입이 완료되었습니다😆')}`)
         }
     });
 });
@@ -81,11 +58,23 @@ app.post('/login', (req, res) => {
             res.redirect(`/?message=${encodeURIComponent('아이디 혹은 비밀번호를 확인해주세요')}`)
         } else {
             const user = result[0];
-            res.cookie('session', user.id, { maxAge: 900000, httpOnly: true }); // 질문 내용
+            res.cookie('session', user.id, { maxAge: 900000, httpOnly: true });
             res.redirect('/diaryList')
         }
     })
 });
+
+app.get('/diaryList', (req, res) => {
+    if (req.cookies.session === undefined) {
+        res.redirect(`/?message=${encodeURIComponent('다시 로그인 해주세요')}`)
+    } else {
+        db.query(`SELECT * FROM journals where user_id='${req.cookies.session}'`, (err, items) => {
+            res.render('diaryList', {
+                items: items
+            })
+        })
+    }
+})
 
 app.get('/journals/:id', (req, res) => {
     if (req.cookies.session === undefined) {
@@ -106,7 +95,11 @@ app.get('/write', (req, res) => {
 app.post('/write', (req, res) => {
     const { title, content } = req.body;
     db.query(`INSERT INTO journals(title, content, created_at, user_id) VALUE('${title}', '${content}', '${getCurrentDatetime()}', '${req.cookies.session}')`, (err, result) => {
-        res.redirect(`/journals/${ result.insertId }`)
+        if (err) {
+            res.redirect(`/?message=${encodeURIComponent("로그인을 확인해주세요")}`)
+        } else {
+            res.redirect(`/journals/${result.insertId}`)
+        }
     })
 });
 
@@ -141,6 +134,5 @@ app.listen(3000, (req, res) => {
 
 
 function getCurrentDatetime() {
-    return new Date().toISOString().slice(0, 19).replace('T', ' ');
-
+    return new Date().toISOString().slice(0, 19).replace('T', ' ')
 }   

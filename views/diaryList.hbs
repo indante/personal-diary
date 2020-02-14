@@ -1,21 +1,59 @@
-<table class="table table-hover">
-    <thead class="thead-dark">
+<style>
+    body {
+        background: url(/diarylist2.jpg) no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    table {
+        width: 700px !important;
+        text-align: center;
+        top: 15%;
+        left: 30%;
+        position: absolute;
+        color: white;
+    }
+
+    table thead {
+        font-size: 20px;;
+        font-weight: bold;
+        color: darkgray;
+        border-bottom: 6px;
+    }
+
+    #Number {
+        width: 10px;
+    }
+
+    #Title {
+        width: 200px;
+    }
+
+    #FK {
+        width: 50px;
+    }
+
+</style>
+<form action="/delete/{{ result.id }}" method="POST">
+<table class="table table-bordered">
+    <thead>
         <tr>
-            <th scope="col" class="text-center">번호</th>
-            <th scope="col" class="text-center">제목</th>
-            <th scope="col" class="text-center">날짜</th>
-            <th scope="col" class="text-center">눌러야함</th>
+            <td class="text-center" id="Number">Number</td>
+            <td class="text-center" id="Title">Title</td>
+            <td class="text-center" id="FK">Function Key</td>
         </tr>
     </thead>
-    <tobdy>
+    <tbody>
         {{#each items}}
         <tr>
-            <th scope="row" class="text-center">{{ this.id }}</th>
-            <th scope="row" class="text-center">{{ this.title }}</th>
-            <th scope="row" class="text-center">{{ this.created_at }}</th><br>
-            <th scope="row" onclick="location.href='/journals/{{ this.id }}'" class="text-center">보러가기</th>
+            <th class="text-center"> {{ @index }}</th>
+            <th class="text-center">{{ this.title }}</th>
+            <th>
+                <input type="button" class="btn btn-outline-info" value="Watching" onclick="location.href='journals/{{ this.id }}'">
+                <button class="btn btn-info" type="submit">Delete</button>
+            </th>
         </tr>
         {{/each}}
-    </tobdy>
+        <th colspan="3"><input type="button" class="btn btn-outline-info" value="Writing" onclick="location.href='/write'"></th>
+    </tbody>
 </table>
-<a class="btn btn-outline-dark" href="/write" role="button" style="width:100%;">일기 쓰기</a>
+</form>
