@@ -4,6 +4,7 @@ const hbs = require('express-handlebars');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const md5 = require('md5');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,8 +43,10 @@ app.get('/signUp', (req, res) => {
 
 app.post('/signUp', (req, res) => {
     const { username, password } = req.body;
-    db.query(`INSERT INTO users (username, password) VALUE('${username}', '${password}') `, (err, result) => {
+    const encryptedPassword = md5(password)
+    db.query(`INSERT INTO users (username, password) VALUE('${username}', '${encryptedPassword}') `, (err, result) => {
         if (err) {
+            console.error(err)
             res.redirect(`/signUp?message=${encodeURIComponent('아이디가 중복입니다.')}`)
         } else {
             res.redirect(`/?message=${encodeURIComponent('회원가입이 완료되었습니다😆')}`)
@@ -53,7 +56,8 @@ app.post('/signUp', (req, res) => {
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-    db.query(`SELECT * FROM users where username = '${username}' and password = '${password}'`, (err, result) => {
+    const encryptedPassword = md5(password)
+    db.query(`SELECT * FROM users where username = '${username}' and password = '${encryptedPassword}'`, (err, result) => {
         if (result.length === 0) {
             res.redirect(`/?message=${encodeURIComponent('아이디 혹은 비밀번호를 확인해주세요')}`)
         } else {
