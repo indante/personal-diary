@@ -95,7 +95,7 @@ app.get('/write', (req, res) => {
 app.post('/write', (req, res) => {
     const { title, content } = req.body;
     db.query(`INSERT INTO journals(title, content, created_at, user_id) VALUE('${title}', '${content}', '${getCurrentDatetime()}', '${req.cookies.session}')`, (err, result) => {
-        if (err) {
+        if (req.cookies.session === undefined) {
             console.error(err);
             res.redirect(`/?message=${encodeURIComponent("로그인을 확인해주세요")}`)
         } else {
