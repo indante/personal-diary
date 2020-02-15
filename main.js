@@ -127,12 +127,10 @@ app.post('/delete/:id', (req, res) => {
     });
 });
 
-app.listen(3000, (req, res) => {
-    console.log('Example app listening on port 3000!')
+app.listen(process.env.PORT, (req, res) => {
+    console.log(`Example app listening on port ${process.env.PORT}!`);
 });
-
-
 
 function getCurrentDatetime() {
     return new Date().toISOString().slice(0, 19).replace('T', ' ')
-}   
+}
