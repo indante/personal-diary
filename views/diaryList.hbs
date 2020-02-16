@@ -1,38 +1,5 @@
-<style>
-    body {
-        background: url(/diarylist2.jpg) no-repeat center center fixed;
-        background-size: cover;
-    }
+<link rel="stylesheet" href="/css/diaryList.css">
 
-    table {
-        width: 700px !important;
-        text-align: center;
-        top: 15%;
-        left: 30%;
-        position: absolute;
-        color: white;
-    }
-
-    table thead {
-        font-size: 20px;;
-        font-weight: bold;
-        color: darkgray;
-        border-bottom: 6px;
-    }
-
-    #Number {
-        width: 10px;
-    }
-
-    #Title {
-        width: 200px;
-    }
-
-    #FK {
-        width: 50px;
-    }
-
-</style>
 <form action="/delete/{{ result.id }}" method="POST">
 <table class="table table-bordered">
     <thead>

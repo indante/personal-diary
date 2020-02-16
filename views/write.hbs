@@ -1,35 +1,5 @@
-<style>
-    body {
-        background: url(/diary2.jpg) no-repeat center center fixed;
-        background-size: cover;
-    }
+<link rel="stylesheet" href="/css/write.css">
 
-    label {
-        color: black;
-        font-weight: bold;
-        font-size: 30px;
-        border-bottom: 6px solid rgb(110, 58, 58);
-        margin-bottom: 15px;
-    }
-
-    .writingbox {
-        width: 500px;
-    }
-
-    .form-group {
-        position: relative;
-        left: 500px;
-        top: 90px;
-    }
-
-    input {
-        height: 40px;
-    }
-
-    textarea {
-        height: 350px;
-    }
-</style>
 <div class="writingbox">
     <form action="/write" method="POST">
         <div class="form-group">
@@ -39,8 +9,8 @@
         <div class="form-group">
             <label for="content">Content</label>
             <textarea class="form-control" name="content"></textarea><br>
-            <button class="btn btn-dark" type="submit">Submit</button>
-            <a class="btn btn-outline-dark" href="/diaryList" role="button">Cancel</a>
+            <button class="btn btn-outline-info" type="submit">Submit</button>
+            <a class="btn btn-outline-info" href="/diaryList" role="button">Cancel</a>
         </div>
     </form>
 </div>

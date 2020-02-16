@@ -1,35 +1,5 @@
-<style>
-    body {
-        background: url(/diary2.jpg) no-repeat center center fixed;
-        background-size: cover;
-    }
+<link rel="stylesheet" href="/css/edit.css">
 
-    .form-group {
-        position: relative;
-        left: 500px;
-        top: 90px;
-    }
-
-    .editbox {
-        width: 500px;
-    }
-
-    label {
-        color: black;
-        font-weight: bold;
-        font-size: 30px;
-        border-bottom: 6px solid rgb(110, 58, 58);
-        margin-bottom: 15px;
-    }
-
-    input {
-        height: 40px;
-    }
-
-    textarea {
-        height: 350px;
-    }
-</style>
 <div class="editbox">
 <form action="/edit/{{ result.id }}" method="POST">
     <div class="form-group">
@@ -39,8 +9,8 @@
     <div class="form-group">
         <label for="content">Content</label>
         <textarea name="content" class="form-control">{{ result.content }}</textarea><br>
-        <button type="submit" class="btn btn-dark">Submit</button>
-        <a class="btn btn-outline-dark" href="/journals/{{ result.id }}" role="button">Cancel</a>
+        <button type="submit" class="btn btn-outline-info">Submit</button>
+        <a class="btn btn-outline-info" href="/journals/{{ result.id }}" role="button">Cancel</a>
     </div><br>
 </form>
 </div>
